@@ -1,8 +1,18 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { SessionProvider } from "next-auth/react";
+import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+// Use of the <SessionProvider> is now mandatory to allow components that call
+// `useSession()` anywhere in your application to access the `session` object.
+export default function App({ Component, pageProps }: AppProps) {
+  return (
+    <SessionProvider
+      // Provider options are not required but can be useful in situations where
+      // you have a short session maxAge time. Shown here with default values.
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+      session={pageProps.session}
+    >
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
 }
-
-export default MyApp
