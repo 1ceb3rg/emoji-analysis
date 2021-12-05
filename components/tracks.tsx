@@ -152,7 +152,7 @@ const Tracks = (props: ITracksProp) => {
                     <img
                       className="h-10 w-10 rounded-full"
                       src={track.image}
-                      alt=""
+                      alt="Album Cover"
                     />
                   </div>
                   <div className="ml-4">
@@ -163,13 +163,13 @@ const Tracks = (props: ITracksProp) => {
                 </div>
               </td>
               <td className="px-6 py-4 ">
-                <div className="text-sm text-gray-900">
+                <div className="text-4xl text-gray-900">
                   {getTempoEmoji(track.tempo)}
                 </div>
                 <div className="text-sm text-gray-500"></div>
               </td>
               <td className="px-6 py-4">
-                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                <span className="px-2 inline-flex leading-5  text-4xl font-semibold rounded-full bg-green-100 text-green-800">
                   {track.mode == 1 ? "😀" : "😔"}
                 </span>
               </td>
