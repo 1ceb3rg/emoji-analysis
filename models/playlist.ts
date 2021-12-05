@@ -9,10 +9,10 @@ export interface IPlaylist{
 }
 
 export interface IPlaylistTracks{ 
-    items:[Track]
+    items:[ITrack]
 }
 
-export interface Track{
+export interface ITrack{
     name:string;
     id:string;
     artists:[string]

@@ -33,7 +33,7 @@ export default async function handler(
       .then((body) =>
         body.items.map((item: IPlaylist) => {
           const { id, name, description,images } = item;
-          console.log(images)
+          
 const image=images[images.length-1].url
           return {
             id,
@@ -47,8 +47,7 @@ const image=images[images.length-1].url
       .catch((error) => {
         res.status(401).json(error);
 
-        console.log("the error", error);
-        console.log("here");
+        
       });
   else
     res.status(401).json({

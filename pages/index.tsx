@@ -42,7 +42,7 @@ export default function Page() {
 
   //   },[activePlaylist])
   return (
-    <div>
+    <>
       <Head>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
@@ -143,7 +143,6 @@ export default function Page() {
                       </div>
                     </div>
                     <div className="-mr-2 flex md:hidden">
-                      {/* Mobile menu button */}
                       <Disclosure.Button className="bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                         <span className="sr-only">Open main menu</span>
                         {open ? (
@@ -210,19 +209,21 @@ export default function Page() {
                     </div>
                     <div className="mt-3 px-2 space-y-1">
                       <Disclosure.Button
-                        as="button"
                         // href={
                         //   status === "authenticated"
                         //     ? "/api/auth/signout"
                         //     : "/api/auth/signin"
                         // }
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
-                        onClick={() => {
-                          if (status === "authenticated") signOut();
-                          else signIn();
-                        }}
                       >
-                        {status === "authenticated" ? "Sign Out" : "Sign In"}
+                        <button
+                          onClick={() => {
+                            if (status === "authenticated") signOut();
+                            else signIn();
+                          }}
+                        >
+                          {status === "authenticated" ? "Sign Out" : "Sign In"}
+                        </button>
                       </Disclosure.Button>
                     </div>
                   </div>
@@ -231,7 +232,7 @@ export default function Page() {
             )}
           </Disclosure>
 
-          <header className="bg-white shadow">
+          <header className="bg-gray-100 shadow">
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold text-gray-900">
                 Playlist Emojis
@@ -239,14 +240,14 @@ export default function Page() {
             </div>
           </header>
           <main>
-            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-              <div className="px-4 py-6 sm:px-0">
+            <div className="max-w-7xl mx-auto bg-gray-100 py-6 sm:px-6 lg:px-8">
+              <div className="px-1 py-6 mx-2 md:gap-0  ">
                 {status === "authenticated" && <Playlist />}
               </div>
             </div>
           </main>
         </div>
       </>
-    </div>
+    </>
   );
 }

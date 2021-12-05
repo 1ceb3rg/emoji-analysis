@@ -2,7 +2,7 @@ import {
   getSession
 } from 'next-auth/react'
 import { getToken, JWT } from 'next-auth/jwt'
-import { IPlaylist, IPlaylistTracks, Track } from '../../../../models/playlist';
+import { IPlaylist, IPlaylistTracks, ITrack } from '../../../../models/playlist';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const fetchPlaylistTracks = async (playlistId: string, token:string) => {
@@ -35,7 +35,7 @@ const fetchPlaylistTracks = async (playlistId: string, token:string) => {
     return (error);
   }
 }
-const fetchTrackFeatures = async (tracks:Array<Track>, token:string) => {
+const fetchITrackFeatures = async (tracks:Array<ITrack>, token:string) => {
   
   const ids = tracks.map(track => track.id).join(",");
 try{
@@ -77,7 +77,7 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 if(token&& token.accessToken && typeof id==="string" )
 {
   const tracks = await fetchPlaylistTracks(id, token.accessToken);
-  const tracksWithData = await fetchTrackFeatures(tracks, token.accessToken);
+  const tracksWithData = await fetchITrackFeatures(tracks, token.accessToken);
 
   res.send(tracksWithData)
 }

@@ -37,8 +37,7 @@ export default async function handler(
       .catch((error) => {
         res.status(401).json(error);
 
-        console.log("the error", error);
-        console.log("here");
+       
       });
   else
     res.status(401).json({

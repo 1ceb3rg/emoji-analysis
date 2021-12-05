@@ -1,0 +1,144 @@
+import classNames from "classnames";
+import { ITrack } from "../models/playlist";
+
+interface ITrackProps {
+  track: ITrack;
+  index: number;
+}
+const tempoEmojis = [
+  "🐌",
+  "🦥",
+  "🐕",
+  "🧍",
+  "🚣",
+  "🚢",
+  "🚴",
+  "🚗",
+  "🏎️",
+  "🚆",
+  "🛫",
+  "🚀",
+];
+const getTempoEmoji = (tempo: number) => {
+  switch (true) {
+    case tempo < 50:
+      return tempoEmojis[0];
+      break;
+    case tempo < 60:
+      return tempoEmojis[1];
+      break;
+    case tempo < 80:
+      return tempoEmojis[3];
+      break;
+    case tempo < 100:
+      return tempoEmojis[4];
+      break;
+    case tempo < 120:
+      return tempoEmojis[5];
+      break;
+    case tempo < 160:
+      return tempoEmojis[6];
+      break;
+    case tempo < 200:
+      return tempoEmojis[7];
+      break;
+    case tempo < 280:
+      return tempoEmojis[8];
+      break;
+    case tempo < 360:
+      return tempoEmojis[9];
+      break;
+    case tempo >= 360:
+      return tempoEmojis[10];
+      break;
+    default:
+      return "no tempo";
+      break;
+  }
+};
+
+interface ITrackSectionProps {
+  title: string;
+  children: React.ReactNode;
+  index: number;
+  className: string;
+}
+
+const TrackSection = (props: ITrackSectionProps) => {
+  const { title, children, className } = props;
+  return (
+    <div
+      className={classNames(
+        "px-6 py-5 grid grid-cols-2  justify-between opacity-95 md:opacity-100 ",
+        className
+      )}
+    >
+      <dt className="text-sm font-medium text-gray-500 md:hidden ">{title}</dt>
+      <dd className="md:col-span-2  mt-1 text-sm text-gray-900 justify-center text-center md:text-left ">
+        {children}
+      </dd>
+    </div>
+  );
+};
+
+const Track = (props: ITrackProps) => {
+  const { track, index } = props;
+
+  return (
+    <div
+      key={track.id}
+      style={{ backgroundImage: `url(${track.image})` }}
+      className={classNames(
+        "  grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300  bg-center bg-no-repeat bg-gray-50 md:shadow-none md:bg-none  md:rounded-none md:border-b    "
+      )}
+    >
+      <TrackSection
+        className={classNames(
+          "bg-gray-200   md:col-span-2 rounded-t-xl md:rounded-none    ",
+          { "md:bg-gray-200": index % 2 !== 0 },
+          { "md:bg-gray-50": index % 2 === 0 }
+        )}
+        index={index}
+        title="Name"
+      >
+        {track.name}
+      </TrackSection>
+
+      <TrackSection
+        className={classNames(
+          "bg-gray-50   ",
+          { "md:bg-gray-200": index % 2 !== 0 },
+          { "md:bg-gray-50": index % 2 === 0 }
+        )}
+        index={index}
+        title="Tempo"
+      >
+        <span className="text-3xl"> {getTempoEmoji(track.tempo)}</span>
+      </TrackSection>
+      <TrackSection
+        className={classNames(
+          "bg-gray-200",
+          { "md:bg-gray-200": index % 2 !== 0 },
+          { "md:bg-gray-50": index % 2 === 0 }
+        )}
+        index={index}
+        title="Key"
+      >
+        <span className="text-3xl">{track.mode == 1 ? "😀" : "😔"}</span>
+      </TrackSection>
+      <TrackSection
+        className={classNames(
+          "bg-gray-50 md:col-span-2 rounded-b-xl md:rounded-none",
+          { "md:bg-gray-200": index % 2 !== 0 },
+          { "md:bg-gray-50": index % 2 === 0 }
+        )}
+        index={index}
+        title="Artist"
+      >
+        {track.artists.reduce((artists, artist) => (artists += ", " + artist))}{" "}
+      </TrackSection>
+    </div>
+  );
+};
+
+export default Track;
