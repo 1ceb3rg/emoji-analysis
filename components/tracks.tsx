@@ -114,7 +114,7 @@ const Tracks = (props: ITracksProp) => {
         </div>
       </div> */}
 
-      <table className="table-auto  divide-y divide-gray-200">
+      <table className="table-auto max-w-full min-w-full  divide-y divide-gray-200">
         <thead className="bg-gray-50">
           <tr>
             <th
