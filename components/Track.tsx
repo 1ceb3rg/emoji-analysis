@@ -88,7 +88,7 @@ const Track = (props: ITrackProps) => {
       key={track.id}
       style={{ backgroundImage: `url(${track.image})` }}
       className={classNames(
-        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300   bg-fixed bg-cover md:bg-auto md:bg- bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
+        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300   md:bg-fixed   bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
         { "md:bg-left": index % 3 === 0 },
         { "md:bg-center": index % 3 === 1 },
         { "md:bg-right": index % 3 === 2 }
