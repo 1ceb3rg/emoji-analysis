@@ -132,7 +132,7 @@ const PlaylistSelector = () => {
         ></iframe>
       )}
 
-      {selected && <TracksList playlistId={selected.id} />}
+      <TracksList playlistId={selected?.id} />
     </>
   );
 };

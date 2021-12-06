@@ -3,8 +3,9 @@ import { CSSProperties } from "react";
 import { ITrack } from "../models/playlist";
 
 interface ITrackProps {
-  track: ITrack;
+  track?: ITrack;
   index: number;
+  numTracks?: number;
 }
 const tempoEmojis = [
   "🐌",
@@ -55,10 +56,10 @@ const getTempoEmoji = (tempo: number) => {
 };
 
 interface ITrackSectionProps {
-  title: string;
-  children: React.ReactNode;
-  index: number;
-  className: string;
+  title?: string;
+  children?: React.ReactNode;
+  index?: number;
+  className?: string;
   style?: CSSProperties;
 }
 
@@ -81,17 +82,23 @@ const TrackSection = (props: ITrackSectionProps) => {
 };
 
 const Track = (props: ITrackProps) => {
-  const { track, index } = props;
+  const { track, index, numTracks } = props;
 
   return (
-    <div key={track.id}>
+    <div key={track?.id ?? index?.toString()}>
       <div
-        style={{ backgroundImage: `url(${track.image})` }}
+        style={{ backgroundImage: `url(${track?.image})` }}
         className={classNames(
           `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed bg-blend-multiply bg-no-repeat bg-center  bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
-          { "md:bg-left 2xl:bg-[position:18%] ": index % 3 === 0 },
+          {
+            "md:bg-left 2xl:bg-[position:18%] ":
+              index % 3 === 0 && numTracks && numTracks > 3,
+          },
           { "md:bg-center": index % 3 === 1 },
-          { "md:bg-right 2xl:bg-[position:82%]": index % 3 === 2 }
+          {
+            "md:bg-right 2xl:bg-[position:82%]":
+              index % 3 === 2 && numTracks && numTracks > 3,
+          }
         )}
       >
         <TrackSection
@@ -104,7 +111,7 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Name"
         >
-          {track.name}
+          {track?.name}
         </TrackSection>
 
         <TrackSection
@@ -116,7 +123,9 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Tempo"
         >
-          <span className="text-3xl"> {getTempoEmoji(track.tempo)}</span>
+          <span className="text-3xl">
+            {track?.tempo && getTempoEmoji(track?.tempo)}
+          </span>
         </TrackSection>
         <TrackSection
           className={classNames(
@@ -127,7 +136,9 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Key"
         >
-          <span className="text-3xl">{track.mode == 1 ? "😀" : "😔"}</span>
+          <span className="text-3xl">
+            {track?.mode && (track?.mode == 1 ? "😀" : "😔")}
+          </span>
         </TrackSection>
         <TrackSection
           className={classNames(
@@ -138,7 +149,7 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Artist"
         >
-          {track.artists.reduce(
+          {track?.artists.reduce(
             (artists, artist) => (artists += ", " + artist)
           )}{" "}
         </TrackSection>

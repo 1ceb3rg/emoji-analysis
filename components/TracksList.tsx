@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useEffect, useState } from "react";
 import { ITrack } from "../models/playlist";
 import Track from "./Track";
@@ -55,12 +56,13 @@ const getTempoEmoji = (tempo: number) => {
 };
 
 interface ITracksProp {
-  playlistId: string;
+  playlistId?: string;
 }
 
 const TracksList = (props: ITracksProp) => {
   const { playlistId } = props;
 
+  const [loading, setLoading] = useState<boolean>(false);
   const [tracks, setTracks] = useState<Array<ITrack>>([]);
   const fetchTracks = async (playlistId: string) => {
     fetch(`/api/spotify/playlists/${playlistId}`)
@@ -73,6 +75,7 @@ const TracksList = (props: ITracksProp) => {
         });
 
         setTracks(fewerValues);
+        setLoading(false);
       });
   };
 
@@ -80,7 +83,12 @@ const TracksList = (props: ITracksProp) => {
     const fetchData = async () => {
       playlistId && (await fetchTracks(playlistId));
     };
-    fetchData();
+
+    if (playlistId) {
+      setLoading(true);
+
+      fetchData();
+    }
   }, [playlistId]);
   return (
     <div className="bg-gray-100 mt-4 md:mt-2 overflow-hidden   md:rounded-lg  md:border ">
@@ -90,10 +98,23 @@ const TracksList = (props: ITracksProp) => {
         <div className="px-5 py-5 text-xl font-medium   ">Key</div>
         <div className="pl-6 py-5 text-xl col-span-2 font-medium  ">Artist</div>
       </div>
-      <dl className="flex flex-col gap-y-4 md:gap-0 md:px-0">
+      <dl
+        className={classNames("flex flex-col  gap-y-4 md:gap-0 md:px-0", {
+          "blur-sm animate-pulse": loading,
+        })}
+      >
         {tracks.map((track, index) => (
-          <Track key={track.id} index={index} track={track} />
+          <Track
+            key={track.id}
+            numTracks={tracks.length}
+            index={index}
+            track={track}
+          />
         ))}
+        {/* {tracks.length < 5 &&
+          [1, 2, 3, 4, 5, 6].map((num, index) => (
+            <Track index={index} key={index.toString()} />
+          ))} */}
       </dl>
     </div>
   );

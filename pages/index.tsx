@@ -236,12 +236,12 @@ export default function Page() {
             Playlist Emojis
           </h1>
         </div>
-        <div className="h-36 md:h-20"> </div>
+        <div className="h-20 md:h-20"> </div>
       </header>
       <main className="bg-gray-100">
         <div className="max-w-7xl mx-auto  bg-gray-100 py-6 sm:px-6 lg:px-8">
           <div className="  -mt-20 md:gap-0 rounded-lg bg-white   ">
-            <div className="px-2 py-2">
+            <div className="px-2 py-2 min-h-screen ">
               {status === "authenticated" && <PlaylistSelector />}
             </div>
           </div>
