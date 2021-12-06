@@ -5,7 +5,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import Playlist from "../components/Playlists";
+import PlaylistSelector from "../components/PlaylistSelector";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
@@ -247,7 +247,7 @@ export default function Page() {
             <div className="max-w-7xl mx-auto  bg-gray-100 py-6 sm:px-6 lg:px-8">
               <div className="  -mt-40 md:gap-0 rounded-lg bg-white   ">
                 <div className="px-2 py-2">
-                  {status === "authenticated" && <Playlist />}
+                  {status === "authenticated" && <PlaylistSelector />}
                 </div>
               </div>
             </div>

@@ -11,7 +11,7 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Playlist = () => {
+const PlaylistSelector = () => {
   const [playlists, setPlaylists] = useState<Array<IPlaylist>>([]);
 
   const [selected, setSelected] = useState<IPlaylist>();
@@ -136,4 +136,4 @@ const Playlist = () => {
     </>
   );
 };
-export default Playlist;
+export default PlaylistSelector;
