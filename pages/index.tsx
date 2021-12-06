@@ -1,7 +1,7 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Playlist from "../components/playlists";
+import Playlist from "../components/Playlists";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
@@ -231,18 +231,23 @@ export default function Page() {
               </>
             )}
           </Disclosure>
-
-          <header className="bg-gray-100 shadow">
+          <div className="bg-gray-800">
+            <div className=" shadow bg-gray-700 bg-blend-lighten  h-0.5 mx-2 md:mx-6 bg-origin-content"></div>
+          </div>
+          <header className="bg-gray-800  shadow">
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-3xl font-bold font-mono text-gray-200">
                 Playlist Emojis
               </h1>
             </div>
+            <div className="h-40"> </div>
           </header>
-          <main>
-            <div className="max-w-7xl mx-auto bg-gray-100 py-6 sm:px-6 lg:px-8">
-              <div className="px-1 py-6 mx-2 md:gap-0  ">
-                {status === "authenticated" && <Playlist />}
+          <main className="bg-gray-100">
+            <div className="max-w-7xl mx-auto  bg-gray-100 py-6 sm:px-6 lg:px-8">
+              <div className="  -mt-40 md:gap-0 rounded-lg bg-white   ">
+                <div className="px-2 py-2">
+                  {status === "authenticated" && <Playlist />}
+                </div>
               </div>
             </div>
           </main>

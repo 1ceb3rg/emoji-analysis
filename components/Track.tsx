@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { CSSProperties } from "react";
 import { ITrack } from "../models/playlist";
 
 interface ITrackProps {
@@ -62,14 +63,16 @@ interface ITrackSectionProps {
   children: React.ReactNode;
   index: number;
   className: string;
+  style?: CSSProperties;
 }
 
 const TrackSection = (props: ITrackSectionProps) => {
-  const { title, children, className } = props;
+  const { title, children, className, style } = props;
   return (
     <div
+      style={style}
       className={classNames(
-        "px-6 py-5 grid grid-cols-2  justify-between opacity-95 md:opacity-100 ",
+        "px-6 py-5 grid grid-cols-2  justify-between opacity-90 md:opacity-80   ",
         className
       )}
     >
@@ -89,12 +92,16 @@ const Track = (props: ITrackProps) => {
       key={track.id}
       style={{ backgroundImage: `url(${track.image})` }}
       className={classNames(
-        "  grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300  bg-center bg-no-repeat bg-gray-50 md:shadow-none md:bg-none  md:rounded-none md:border-b    "
+        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 bg-origin-content   bg-fixed  bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
+        { "md:bg-left": index % 3 === 0 },
+        { "md:bg-center": index % 3 === 1 },
+        { "md:bg-right": index % 3 === 2 }
       )}
     >
       <TrackSection
+        // style={{ backgroundImage: `url(${track.image})` }}
         className={classNames(
-          "bg-gray-200   md:col-span-2 rounded-t-xl md:rounded-none    ",
+          "bg-gray-200   md:col-span-2    rounded-t-xl md:rounded-none    ",
           { "md:bg-gray-200": index % 2 !== 0 },
           { "md:bg-gray-50": index % 2 === 0 }
         )}

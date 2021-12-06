@@ -83,8 +83,8 @@ const TracksList = (props: ITracksProp) => {
     fetchData();
   }, [playlistId]);
   return (
-    <div className="bg-gray-100 mt-4 md:mt-2 overflow-hidden md:rounded-lg md: border-gray-500 md:border ">
-      <div className="hidden  md:grid grid-cols-6 px-2 py-2 border-b border-gray-800">
+    <div className="bg-gray-100 mt-4 md:mt-2 overflow-hidden   md:rounded-lg  md:border ">
+      <div className="hidden  md:grid grid-cols-6 px-2 py-2 border-b ">
         <div className="px-5 py-5 text-xl col-span-2  font-medium   ">Name</div>
         <div className="pl-4 py-5 text-xl font-medium   ">Tempo</div>
         <div className="px-5 py-5 text-xl font-medium   ">Key</div>
