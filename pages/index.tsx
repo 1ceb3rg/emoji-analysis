@@ -1,12 +1,11 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import Playlist from "../components/Playlists";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import Link from "next/link";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-
+import Playlist from "../components/Playlists";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
