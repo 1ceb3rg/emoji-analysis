@@ -231,16 +231,18 @@ export default function Page() {
               </>
             )}
           </Disclosure>
-          <div className="bg-gray-800">
-            <div className=" shadow bg-gray-700 bg-blend-lighten  h-0.5 mx-2 md:mx-6 bg-origin-content"></div>
+          <div className="bg-gray-800 ">
+            <div className=" shadow max-w-7xl mx-auto bg-blend-lighten   md:px-6 lg:px-8  h-0.5   bg-origin-border">
+              <div className="bg-gray-700 mx-auto w-full h-full "></div>
+            </div>
           </div>
           <header className="bg-gray-800  shadow">
-            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold font-mono text-gray-200">
                 Playlist Emojis
               </h1>
             </div>
-            <div className="h-40"> </div>
+            <div className="h-36 md:h-40"> </div>
           </header>
           <main className="bg-gray-100">
             <div className="max-w-7xl mx-auto  bg-gray-100 py-6 sm:px-6 lg:px-8">

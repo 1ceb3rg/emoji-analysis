@@ -11,39 +11,35 @@ const tempoEmojis = [
   "🦥",
   "🐕",
   "🧍",
-  "🚣",
-  "🚢",
+  "🏃",
+  "🐎",
   "🚴",
-  "🚗",
-  "🏎️",
-  "🚆",
+  "🐆",
+  "🦅",
   "🛫",
   "🚀",
 ];
 const getTempoEmoji = (tempo: number) => {
   switch (true) {
-    case tempo < 50:
+    case tempo < 60:
       return tempoEmojis[0];
       break;
-    case tempo < 60:
+    case tempo < 80:
       return tempoEmojis[1];
       break;
-    case tempo < 80:
+    case tempo < 100:
       return tempoEmojis[3];
       break;
-    case tempo < 100:
+    case tempo < 120:
       return tempoEmojis[4];
       break;
-    case tempo < 120:
+    case tempo < 180:
       return tempoEmojis[5];
-      break;
-    case tempo < 160:
-      return tempoEmojis[6];
       break;
     case tempo < 200:
       return tempoEmojis[7];
       break;
-    case tempo < 280:
+    case tempo < 300:
       return tempoEmojis[8];
       break;
     case tempo < 360:
