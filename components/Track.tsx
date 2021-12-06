@@ -86,14 +86,24 @@ const Track = (props: ITrackProps) => {
   return (
     <div
       key={track.id}
-      style={{ backgroundImage: `url(${track.image})` }}
       className={classNames(
-        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300   md:bg-fixed   bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
+        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300  relative md:bg-fixed   bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
         { "md:bg-left": index % 3 === 0 },
         { "md:bg-center": index % 3 === 1 },
         { "md:bg-right": index % 3 === 2 }
       )}
     >
+      <div
+        style={{ backgroundImage: `url(${track.image})`, zIndex: "2" }}
+        className={classNames(
+          "absolute p-10  w-full h-full bg-clip-padding  bg-center bg-no-repeat opacity-10  bg-fixed   ",
+          { "md:bg-left": index % 3 === 0 },
+          { "md:bg-center": index % 3 === 1 },
+          { "md:bg-right": index % 3 === 2 }
+        )}
+      >
+        te
+      </div>
       <TrackSection
         // style={{ backgroundImage: `url(${track.image})` }}
         className={classNames(
