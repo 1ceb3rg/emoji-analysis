@@ -84,62 +84,65 @@ const Track = (props: ITrackProps) => {
   const { track, index } = props;
 
   return (
-    <div
-      style={{ backgroundImage: `url(${track.image})`, zIndex: "2" }}
-      key={track.id}
-      className={classNames(
-        `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300  relative md:bg-fixed   bg-center bg-no-repeat bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
-        { "md:bg-left": index % 3 === 0 },
-        { "md:bg-center": index % 3 === 1 },
-        { "md:bg-right": index % 3 === 2 }
-      )}
-    >
-      <TrackSection
-        // style={{ backgroundImage: `url(${track.image})` }}
+    <div key={track.id}>
+      <div
+        style={{ backgroundImage: `url(${track.image})` }}
         className={classNames(
-          "bg-gray-200   md:col-span-2    rounded-t-xl md:rounded-none    ",
-          { "md:bg-gray-200": index % 2 !== 0 },
-          { "md:bg-gray-50": index % 2 === 0 }
+          `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed bg-blend-multiply bg-no-repeat bg-center  bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
+          { "md:bg-left 2xl:bg-[position:18%] ": index % 3 === 0 },
+          { "md:bg-center": index % 3 === 1 },
+          { "md:bg-right 2xl:bg-[position:82%]": index % 3 === 2 }
         )}
-        index={index}
-        title="Name"
       >
-        {track.name}
-      </TrackSection>
+        <TrackSection
+          // style={{ backgroundImage: `url(${track.image})` }}
+          className={classNames(
+            "bg-gray-200   md:col-span-2    rounded-t-xl md:rounded-none    ",
+            { "md:bg-gray-200": index % 2 !== 0 },
+            { "md:bg-gray-50": index % 2 === 0 }
+          )}
+          index={index}
+          title="Name"
+        >
+          {track.name}
+        </TrackSection>
 
-      <TrackSection
-        className={classNames(
-          "bg-gray-50   ",
-          { "md:bg-gray-200": index % 2 !== 0 },
-          { "md:bg-gray-50": index % 2 === 0 }
-        )}
-        index={index}
-        title="Tempo"
-      >
-        <span className="text-3xl"> {getTempoEmoji(track.tempo)}</span>
-      </TrackSection>
-      <TrackSection
-        className={classNames(
-          "bg-gray-200",
-          { "md:bg-gray-200": index % 2 !== 0 },
-          { "md:bg-gray-50": index % 2 === 0 }
-        )}
-        index={index}
-        title="Key"
-      >
-        <span className="text-3xl">{track.mode == 1 ? "😀" : "😔"}</span>
-      </TrackSection>
-      <TrackSection
-        className={classNames(
-          "bg-gray-50 md:col-span-2 rounded-b-xl md:rounded-none",
-          { "md:bg-gray-200": index % 2 !== 0 },
-          { "md:bg-gray-50": index % 2 === 0 }
-        )}
-        index={index}
-        title="Artist"
-      >
-        {track.artists.reduce((artists, artist) => (artists += ", " + artist))}{" "}
-      </TrackSection>
+        <TrackSection
+          className={classNames(
+            "bg-gray-50   ",
+            { "md:bg-gray-200": index % 2 !== 0 },
+            { "md:bg-gray-50": index % 2 === 0 }
+          )}
+          index={index}
+          title="Tempo"
+        >
+          <span className="text-3xl"> {getTempoEmoji(track.tempo)}</span>
+        </TrackSection>
+        <TrackSection
+          className={classNames(
+            "bg-gray-200",
+            { "md:bg-gray-200": index % 2 !== 0 },
+            { "md:bg-gray-50": index % 2 === 0 }
+          )}
+          index={index}
+          title="Key"
+        >
+          <span className="text-3xl">{track.mode == 1 ? "😀" : "😔"}</span>
+        </TrackSection>
+        <TrackSection
+          className={classNames(
+            "bg-gray-50 md:col-span-2 rounded-b-xl md:rounded-none",
+            { "md:bg-gray-200": index % 2 !== 0 },
+            { "md:bg-gray-50": index % 2 === 0 }
+          )}
+          index={index}
+          title="Artist"
+        >
+          {track.artists.reduce(
+            (artists, artist) => (artists += ", " + artist)
+          )}{" "}
+        </TrackSection>
+      </div>
     </div>
   );
 };
