@@ -125,7 +125,7 @@ const Playlist = () => {
       {false && (
         <iframe
           className="w-full sticky"
-          src={`https://open.spotify.com/embed/playlist/${selected.id}`}
+          src={`https://open.spotify.com/embed/playlist/${selected?.id}`}
           frameBorder="0"
           allowTransparency={true}
           allow="encrypted-media"
