@@ -1,6 +1,7 @@
 import classNames from "classnames";
-import { CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import { ITrack } from "../models/playlist";
+import AnimateEmoji from "./AnimateEmoji";
 
 interface ITrackProps {
   track?: ITrack;
@@ -123,9 +124,12 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Tempo"
         >
-          <span className="text-3xl">
-            {track?.tempo && getTempoEmoji(track?.tempo)}
-          </span>
+          {track?.tempo && (
+            <AnimateEmoji
+              tempo={track?.tempo}
+              emoji={getTempoEmoji(track?.tempo)}
+            />
+          )}
         </TrackSection>
         <TrackSection
           className={classNames(
@@ -136,9 +140,7 @@ const Track = (props: ITrackProps) => {
           index={index}
           title="Key"
         >
-          <span className="text-3xl">
-            {track?.mode && (track?.mode == 1 ? "😀" : "😔")}
-          </span>
+          <span className="text-3xl  ">{track?.mode === 1 ? "😀" : "😔"}</span>
         </TrackSection>
         <TrackSection
           className={classNames(
@@ -151,7 +153,7 @@ const Track = (props: ITrackProps) => {
         >
           {track?.artists.reduce(
             (artists, artist) => (artists += ", " + artist)
-          )}{" "}
+          )}
         </TrackSection>
       </div>
     </div>
