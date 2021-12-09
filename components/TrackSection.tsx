@@ -21,7 +21,9 @@ const TrackSection = (props: ITrackSectionProps) => {
         "md:bg-gray-50"
       )}
     >
-      <dt className="text-sm font-medium text-black  md:hidden ">{title}</dt>
+      <dt className="text-sm font-medium text-black p-2 md:p-0  md:hidden ">
+        {title}
+      </dt>
       <dd className="md:col-span-2  mt-1 text-sm text-black justify-center  md:text-black md:text-left ">
         {children}
       </dd>

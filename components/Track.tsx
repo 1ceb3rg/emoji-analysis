@@ -76,7 +76,7 @@ const Track = (props: ITrackProps) => {
         ref={divRef}
         style={{ backgroundColor: bgColorm }}
         className={classNames(
-          `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed   md:shadow-none   md:rounded-none md:border-b    `
+          `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed p-2 md:p-0   md:shadow-none   md:rounded-none md:border-b    `
         )}
       >
         <div className="flex p-4 visible justify-center md:hidden md:justify-start">
@@ -90,11 +90,13 @@ const Track = (props: ITrackProps) => {
         </div>
         <TrackSection
           // style={{ backgroundImage: `url(${track.image})` }}
-          className={classNames("bg-gray-200   md:col-span-2 rounded-none    ")}
+          className={classNames(
+            "bg-gray-200   md:col-span-2 rounded-t-xl md:rounded-none    "
+          )}
           index={index}
           title="Name"
         >
-          <div className="flex">
+          <div className="flex ">
             <div className="hidden md:flex md:justify-start">
               <img
                 crossOrigin="anonymous"
@@ -103,7 +105,7 @@ const Track = (props: ITrackProps) => {
                 className="h-20 w-20"
                 src={track?.image}
               />
-            </div>
+            </div>{" "}
             {track?.name}
           </div>
         </TrackSection>
