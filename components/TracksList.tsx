@@ -1,63 +1,13 @@
 import classNames from "classnames";
+import FastAverageColor from "fast-average-color";
 import React, { useEffect, useState } from "react";
 import { ITrack } from "../models/playlist";
 import Track from "./Track";
 
-const tempoEmojis = [
-  "🐌",
-  "🦥",
-  "🐕",
-  "🧍",
-  "🚣",
-  "🚢",
-  "🚴",
-  "🚗",
-  "🏎️",
-  "🚆",
-  "🛫",
-  "🚀",
-];
-const getTempoEmoji = (tempo: number) => {
-  switch (true) {
-    case tempo < 50:
-      return tempoEmojis[0];
-      break;
-    case tempo < 60:
-      return tempoEmojis[1];
-      break;
-    case tempo < 80:
-      return tempoEmojis[3];
-      break;
-    case tempo < 100:
-      return tempoEmojis[4];
-      break;
-    case tempo < 120:
-      return tempoEmojis[5];
-      break;
-    case tempo < 160:
-      return tempoEmojis[6];
-      break;
-    case tempo < 200:
-      return tempoEmojis[7];
-      break;
-    case tempo < 280:
-      return tempoEmojis[8];
-      break;
-    case tempo < 360:
-      return tempoEmojis[9];
-      break;
-    case tempo >= 360:
-      return tempoEmojis[10];
-      break;
-    default:
-      return "no tempo";
-      break;
-  }
-};
-
 interface ITracksProp {
   playlistId?: string;
 }
+const fac = new FastAverageColor();
 
 const TracksList = (props: ITracksProp) => {
   const { playlistId } = props;
@@ -65,18 +15,19 @@ const TracksList = (props: ITracksProp) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [tracks, setTracks] = useState<Array<ITrack>>([]);
   const fetchTracks = async (playlistId: string) => {
-    fetch(`/api/spotify/playlists/${playlistId}`)
-      .then((res) => res.json())
-      .then((json) => {
-        const fewerValues = json.map((track: ITrack) => {
-          const { tempo, name, mode, id, artists, album } = track;
-          const image = album.images[album.images.length - 2].url;
-          return { tempo, name, mode, id, artists, image };
-        });
+    const res = await fetch(`/api/spotify/playlists/${playlistId}`);
+    const json = await res.json();
+    const fewerValues = json.map((track: ITrack) => {
+      const { tempo, name, mode, id, artists, album, time_signature } = track;
+      const image = album.images[album.images.length - 2].url;
+      return { tempo, name, mode, id, artists, image, time_signature };
+    });
 
-        setTracks(fewerValues);
-        setLoading(false);
-      });
+    setTracks(fewerValues);
+    setLoading(false);
+  };
+  const getColor = async (image: string) => {
+    return (await fac.getColorAsync(image)).hex;
   };
 
   useEffect(() => {
@@ -105,6 +56,7 @@ const TracksList = (props: ITracksProp) => {
       >
         {tracks.map((track, index) => (
           <Track
+            bgColor={getColor(track.image)}
             key={track.id}
             numTracks={tracks.length}
             index={index}

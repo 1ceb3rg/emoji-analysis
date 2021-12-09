@@ -1,4 +1,4 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, Dispatch, SetStateAction } from "react";
 import { signOut } from "next-auth/react";
 import { IPlaylist } from "../models/playlist";
 import { MusicNoteIcon } from "@heroicons/react/outline";
@@ -6,15 +6,17 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, SelectorIcon } from "@heroicons/react/solid";
 
 import TracksList from "./TracksList";
+import classNames from "classnames";
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
+interface IPlaylistSelectorProps {
+  onChange: Dispatch<SetStateAction<IPlaylist | undefined>>;
+  selected: IPlaylist | undefined;
 }
 
-const PlaylistSelector = () => {
+const PlaylistSelector = (props: IPlaylistSelectorProps) => {
+  const { onChange, selected } = props;
   const [playlists, setPlaylists] = useState<Array<IPlaylist>>([]);
 
-  const [selected, setSelected] = useState<IPlaylist>();
   const fetchPlaylists = async () => {
     fetch("/api/spotify/playlists")
       .then((res) => {
@@ -30,13 +32,12 @@ const PlaylistSelector = () => {
   useEffect(() => {
     const fetchData = async () => {
       await fetchPlaylists();
-      setSelected(playlists[0]);
     };
     fetchData();
   }, []);
   return (
     <>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={onChange}>
         {({ open }) => (
           <>
             <Listbox.Label className="block text-sm font-medium text-gray-700">
@@ -122,17 +123,6 @@ const PlaylistSelector = () => {
           </>
         )}
       </Listbox>
-      {false && (
-        <iframe
-          className="w-full sticky"
-          src={`https://open.spotify.com/embed/playlist/${selected?.id}`}
-          frameBorder="0"
-          allowTransparency={true}
-          allow="encrypted-media"
-        ></iframe>
-      )}
-
-      <TracksList playlistId={selected?.id} />
     </>
   );
 };

@@ -1,8 +1,18 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
+const colors = require('tailwindcss/colors');
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    colors:{
+      
+      white: colors.white,
+      gray: colors.trueGray,
+      indigo: colors.indigo,
+      red: colors.rose,
+      yellow: colors.amber,
+      black:"#191414"
+    },
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
@@ -13,42 +23,10 @@ module.exports = {
 
 
       },
-      keyframes: {
-        slidein: {
-          '0%': {
-            marginLeft: '100%',
-            opacity: '0%'
-          },
-          '10%': {
-            opacity: '100'
-          },
-          '90%': {
-            opacity: '100'
-          },
-          '100%': {
-            marginLeft: '0%',
-            opacity: '0%'
-          }
-
-        },
-        tempo: {
-          '0%': {
-            
-            opacity: '20%',
-          },
-          '50%':{opacity:'100%',transform:'scale(120%)'
-          },
-          '100%': {
-            
-            opacity: '20%'
-          }
-
-        },
-      },
-    },
-  },
+      
+    },},
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [  require('@tailwindcss/typography') ],
 }

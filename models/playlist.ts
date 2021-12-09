@@ -20,5 +20,6 @@ export interface ITrack{
     key:number;
     mode:number;
     image:string;
-    album:{images:[{url:string}]};
+    time_signature:number;
+    album:{name:string;images:Array<{url:string}>};
 }

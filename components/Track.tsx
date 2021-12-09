@@ -1,12 +1,13 @@
 import classNames from "classnames";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import { ITrack } from "../models/playlist";
 import AnimateEmoji from "./AnimateEmoji";
-
+import TrackSection from "./TrackSection";
 interface ITrackProps {
   track?: ITrack;
   index: number;
   numTracks?: number;
+  bgColor: Promise<string>;
 }
 const tempoEmojis = [
   "🐌",
@@ -56,97 +57,80 @@ const getTempoEmoji = (tempo: number) => {
   }
 };
 
-interface ITrackSectionProps {
-  title?: string;
-  children?: React.ReactNode;
-  index?: number;
-  className?: string;
-  style?: CSSProperties;
-}
-
-const TrackSection = (props: ITrackSectionProps) => {
-  const { title, children, className, style } = props;
-  return (
-    <div
-      style={style}
-      className={classNames(
-        "px-6 py-5 grid grid-cols-2  justify-between opacity-90 md:opacity-80   ",
-        className
-      )}
-    >
-      <dt className="text-sm font-medium text-gray-500 md:hidden ">{title}</dt>
-      <dd className="md:col-span-2  mt-1 text-sm text-gray-900 justify-center text-center md:text-left ">
-        {children}
-      </dd>
-    </div>
-  );
-};
-
 const Track = (props: ITrackProps) => {
-  const { track, index, numTracks } = props;
+  const { track, index, numTracks, bgColor } = props;
+  const imageRef = useRef<HTMLImageElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
+  const [bgColorm, setbgColorm] = useState<string>("#191414");
+  useEffect(() => {
+    const fetchColor = async (bgColor: Promise<string>) => {
+      const color = await bgColor;
+      setbgColorm(color);
+    };
+    fetchColor(bgColor);
+  }, []);
 
   return (
     <div key={track?.id ?? index?.toString()}>
       <div
-        style={{ backgroundImage: `url(${track?.image})` }}
+        ref={divRef}
+        style={{ backgroundColor: bgColorm }}
         className={classNames(
-          `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed bg-blend-multiply bg-no-repeat bg-center  bg-gray-50 md:shadow-none   md:rounded-none md:border-b    `,
-          {
-            "md:bg-left 2xl:bg-[position:18%] ":
-              index % 3 === 0 && numTracks && numTracks > 3,
-          },
-          { "md:bg-center": index % 3 === 1 },
-          {
-            "md:bg-right 2xl:bg-[position:82%]":
-              index % 3 === 2 && numTracks && numTracks > 3,
-          }
+          `grid md:grid-cols-6 rounded-xl shadow-md border border-gray-300 relative md:bg-fixed   md:shadow-none   md:rounded-none md:border-b    `
         )}
       >
+        <div className="flex p-4 visible justify-center md:hidden md:justify-start">
+          <img
+            crossOrigin="anonymous"
+            ref={imageRef}
+            alt={track?.name}
+            className="w-2/3"
+            src={track?.image}
+          />
+        </div>
         <TrackSection
           // style={{ backgroundImage: `url(${track.image})` }}
-          className={classNames(
-            "bg-gray-200   md:col-span-2    rounded-t-xl md:rounded-none    ",
-            { "md:bg-gray-200": index % 2 !== 0 },
-            { "md:bg-gray-50": index % 2 === 0 }
-          )}
+          className={classNames("bg-gray-200   md:col-span-2 rounded-none    ")}
           index={index}
           title="Name"
         >
-          {track?.name}
+          <div className="flex">
+            <div className="hidden md:flex md:justify-start">
+              <img
+                crossOrigin="anonymous"
+                ref={imageRef}
+                alt={track?.name}
+                className="h-20 w-20"
+                src={track?.image}
+              />
+            </div>
+            {track?.name}
+          </div>
         </TrackSection>
 
         <TrackSection
-          className={classNames(
-            "bg-gray-50   ",
-            { "md:bg-gray-200": index % 2 !== 0 },
-            { "md:bg-gray-50": index % 2 === 0 }
-          )}
+          className={classNames("bg-gray-50    ")}
           index={index}
           title="Tempo"
         >
           {track?.tempo && (
             <AnimateEmoji
+              time_signature={track.time_signature}
               tempo={track?.tempo}
               emoji={getTempoEmoji(track?.tempo)}
             />
           )}
         </TrackSection>
         <TrackSection
-          className={classNames(
-            "bg-gray-200",
-            { "md:bg-gray-200": index % 2 !== 0 },
-            { "md:bg-gray-50": index % 2 === 0 }
-          )}
+          className={classNames("bg-gray-200 md:px-5   ")}
           index={index}
           title="Key"
         >
-          <span className="text-3xl  ">{track?.mode === 1 ? "😀" : "😔"}</span>
+          <span className="text-3xl">{track?.mode === 1 ? "😀" : "😔"}</span>
         </TrackSection>
         <TrackSection
           className={classNames(
-            "bg-gray-50 md:col-span-2 rounded-b-xl md:rounded-none",
-            { "md:bg-gray-200": index % 2 !== 0 },
-            { "md:bg-gray-50": index % 2 === 0 }
+            "bg-gray-50 md:col-span-2 md:px-5 rounded-b-xl md:rounded-none"
           )}
           index={index}
           title="Artist"
