@@ -35,26 +35,24 @@ interface ITrackViewProps {
   isShowing: boolean;
 }
 function TrackView(props: ITrackViewProps) {
-  const { track: newTrack, bgColor, nextTrack, onClose, isShowing } = props;
-  const [track, setTrack] = useState(newTrack);
+  const { track, bgColor, nextTrack, onClose, isShowing } = props;
+  // const [track, setTrack] = useState(newTrack);
   const [imageShow, setImageShow] = useState(false);
 
   const [, , resetImageShow] = useTimeoutFn(() => {
-    setTrack(newTrack);
+    // setTrack(newTrack);
     setImageShow(true);
-  }, 500);
-
+  }, 600);
   useEffect(() => {
     resetImageShow();
-  }, [newTrack, resetImageShow]);
-
+  }, [track, resetImageShow]);
   return (
     <div className={classNames('fixed inset-0 overflow-hidden', { hidden: !isShowing })}>
       <div
         style={{ backgroundColor: bgColor }}
-        className={classNames('absolute inset-0 overflow-hidden h-screen flex flex-col')}
+        className={classNames('absolute inset-0 overflow-hidden  h-screen flex flex-col')}
       >
-        <div className="w-full w h-full flex basis-1/12  items-end justify-end">
+        <div className="w-full  h-screen flex basis-1/12  items-end justify-end">
           <button
             type="button"
             className="hover:opacity-50 w-1/6 flex justify-center hover:text-black  text-gray-50 hover:bg-gray-200"
@@ -63,21 +61,20 @@ function TrackView(props: ITrackViewProps) {
             <XIcon className="h-10 m-3" />
           </button>
         </div>
-        <div className="grid flex-grow-0 flex-shrink basis-4/12 grid-cols-6 justify-center  rounded-md">
+        <div className="grid flex-grow-0 flex-shrink basis-6/12 grid-cols-6 justify-center  rounded-md">
           <NextTrackButton
             onClick={() => {
               setImageShow(false);
-
-              nextTrack('left');
             }}
             direction="left"
           />
-          <div className="col-span-4">
+          <div className="col-span-4 flex  place-items-center justify-center w-full">
             <Transition
-              className="w-full h-full flex  justify-center   "
+              className=" flex h-11/12 w-11/12  justify-center   "
               show={imageShow}
               appear
               unmount={false}
+              afterLeave={() => nextTrack('left')}
               enter="transition-opacity duration-500"
               enterFrom="opacity-0"
               enterTo="opacity-100"
@@ -85,40 +82,36 @@ function TrackView(props: ITrackViewProps) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="w-full  ">
-                <img className=" shadow-md  " alt="Album Cover" src={track.album.images[0].url} />
+              <div className="   ">
+                <img className=" shadow-md  object-contain " alt="Album Cover" src={track.album.images[0].url} />
               </div>
             </Transition>
           </div>
           <NextTrackButton
             onClick={() => {
               setImageShow(false);
-              resetImageShow();
-              nextTrack('right');
             }}
             direction="right"
           />
         </div>
-        <div
-          className={classNames(
-            'flex col-span-6 basis-/12  mx-2 md:mx-20  h-2/3 flex-col mt-3 shadow-md  rounded-xl overflow-y-scroll  ',
-          )}
-        >
-          <TrackSection className="bg-gray-200 p-2  " title="Artist">
-            {track.artists.reduce((artists, artist) => {
-              return `${artists}, ${artist}`;
-            })}
-          </TrackSection>
-          <TrackSection className="bg-white p-2 " title="Name">
-            {track.name}
-          </TrackSection>
-          <TrackSection className="bg-gray-200 p-2 " title="Album">
-            {track.album.name}
-          </TrackSection>
+        <div className="basis-4/12 col-span-6 ">
+          <div className={classNames('flex   mx-2 md:mx-20   flex-col  shadow-md  rounded-xl   ')}>
+            <TrackSection className="bg-gray-200 p-2  " title="Artist">
+              {track.artists.reduce((artists, artist) => {
+                return `${artists}, ${artist}`;
+              })}
+            </TrackSection>
+            <TrackSection className="bg-white p-2 " title="Name">
+              {track.name}
+            </TrackSection>
+            <TrackSection className="bg-gray-200 p-2 " title="Album">
+              {track.album.name}
+            </TrackSection>
 
-          <TrackSection className="bg-white  p-2" title="Tempo">
-            {Math.round(track.tempo)}
-          </TrackSection>
+            <TrackSection className="bg-white  p-2" title="Tempo">
+              {Math.round(track.tempo)}
+            </TrackSection>
+          </div>
         </div>
       </div>
     </div>
