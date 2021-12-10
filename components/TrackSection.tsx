@@ -15,13 +15,14 @@ function TrackSection(props: ITrackSectionProps) {
     <div
       style={style}
       className={classNames(
-        'grid grid-cols-2 font-sans justify-between opacity-70  md:text-black  ',
+        'grid grid-cols-2 font-sans justify-between opacity-70 p-2 md:text-black  ',
         className,
-        'even:bg-white odd:bg-gray-200   odd:md:bg-gray-50  even:md:bg-gray-50 first:rounded-t-xl last:rounded-b-xl first:md:rounded-b-none last:md:rounded-none ',
+        'even:bg-white odd:bg-gray-200 odd:md:bg-gray-50 ',
+        'even:md:bg-gray-50 first:rounded-t-lg pl-4 last:rounded-b-lg first:md:rounded-b-none last:md:rounded-none ',
       )}
     >
-      <dt className="text-sm font-medium text-black p-2 md:p-0  md:hidden ">{title}</dt>
-      <dd className="md:col-span-2  mt-1 text-sm text-black justify-center  md:text-black md:text-left ">{children}</dd>
+      <dt className="font-medium text-black  flex place-items-center   md:hidden ">{title}</dt>
+      <dd className="md:col-span-2   flex  text-black  text-base  md:text-black md:text-left ">{children}</dd>
     </div>
   );
 }

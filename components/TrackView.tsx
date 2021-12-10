@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
 import { Transition } from '@headlessui/react';
 import { useTimeoutFn } from 'react-use';
+import classNames from 'classnames';
 import { ITrack } from '../models/playlist';
 import TrackSection from './TrackSection';
 
@@ -26,77 +27,88 @@ interface ITrackViewProps {
   track: ITrack;
   bgColor: string;
   nextTrack: (direction: 'left' | 'right') => void;
+  onClose: () => void;
+  isShowing: boolean;
 }
 function TrackView(props: ITrackViewProps) {
-  const { track: newTrack, bgColor, nextTrack } = props;
+  const { track: newTrack, bgColor, nextTrack, onClose, isShowing } = props;
   const [track, setTrack] = useState(newTrack);
-  const [isShowing, setIsShowing] = useState(false);
-  const [, , resetIsShowing] = useTimeoutFn(() => {
-    setIsShowing(true);
-  }, 1000);
+  const [imageShow, setImageShow] = useState(false);
+
+  const [, , resetImageShow] = useTimeoutFn(() => {
+    setTrack(newTrack);
+    setImageShow(true);
+  }, 500);
 
   useEffect(() => {
-    resetIsShowing();
-  }, [newTrack, resetIsShowing]);
+    resetImageShow();
+  }, [newTrack, resetImageShow]);
 
   return (
     <div
-      className="grid grid-cols-6 duration-75  h-screen justify-center py-10 rounded-md"
       style={{ backgroundColor: bgColor }}
+      className={classNames('absolute inset-0 overflow-hidden', { hidden: !isShowing })}
     >
-      <NextTrackButton
-        onClick={() => {
-          setIsShowing(false);
-
-          nextTrack('left');
-        }}
-        direction="left"
-      />
-      <div className="col-span-4">
-        <div className="flex w-full flex-shrink-0 flex-col">
-          <div className="h-3/6 flex-shrink-0">
-            <Transition
-              className="   w-full "
-              show={isShowing}
-              appear
-              unmount={false}
-              afterLeave={() => setTrack(newTrack)}
-              enter="transition duration-100"
-              enterFrom=" blur"
-              leave="transition duration-100"
-              leaveTo=" blur "
-            >
-              <img className="object-contain shadow-md" alt="Album Cover" src={track.album.images[0].url} />
-            </Transition>
-          </div>
-          <div className="flex flex-col mt-3 shadow-md  rounded-xl  ">
-            <TrackSection className="bg-gray-200 p-2  " title="Artist">
-              {track.artists.reduce((artists, artist) => {
-                return `${artists}, ${artist}`;
-              })}
-            </TrackSection>
-            <TrackSection className="bg-white p-2 " title="Name">
-              {track.name}
-            </TrackSection>
-            <TrackSection className="bg-gray-200 p-2 " title="Album">
-              {track.album.name}
-            </TrackSection>
-
-            <TrackSection className="bg-white  p-2" title="Tempo">
-              {Math.round(track.tempo)}
-            </TrackSection>
-          </div>
-        </div>
+      <div className="w-full flex items-end justify-end">
+        <button type="button" onClick={onClose}>
+          <XIcon className="h-10 w-10" />
+        </button>
       </div>
+      <div className="grid grid-cols-6 duration-75  h-screen justify-center py-10 rounded-md">
+        <NextTrackButton
+          onClick={() => {
+            setImageShow(false);
 
-      <NextTrackButton
-        onClick={() => {
-          setIsShowing(false);
-          resetIsShowing();
-          nextTrack('right');
-        }}
-        direction="right"
-      />
+            nextTrack('left');
+          }}
+          direction="left"
+        />
+        <div className="col-span-4">
+          <Transition
+            className=" w-full h-full "
+            show={imageShow}
+            appear
+            enter="transition-opacity duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="flex w-full  flex-col">
+              <div className="basis-2/3 h-2/3 ">
+                <img className="object-contain shadow-md" alt="Album Cover" src={track.album.images[0].url} />
+              </div>
+              <div className={classNames('flex basis-1/3 flex-col mt-3 shadow-md  rounded-xl  ')}>
+                <TrackSection className="bg-gray-200 p-2  " title="Artist">
+                  {track.artists.reduce((artists, artist) => {
+                    return `${artists}, ${artist}`;
+                  })}
+                </TrackSection>
+                <TrackSection className="bg-white p-2 " title="Name">
+                  {track.name}
+                </TrackSection>
+                <TrackSection className="bg-gray-200 p-2 " title="Album">
+                  {track.album.name}
+                </TrackSection>
+
+                <TrackSection className="bg-white  p-2" title="Tempo">
+                  {Math.round(track.tempo)}
+                </TrackSection>
+              </div>
+            </div>
+          </Transition>
+        </div>
+
+        <NextTrackButton
+          onClick={() => {
+            setImageShow(false);
+            resetImageShow();
+            nextTrack('right');
+          }}
+          direction="right"
+        />
+      </div>
     </div>
   );
 }

@@ -10,6 +10,7 @@ function SongViewer() {
   const [tracks, setTracks] = useState<Array<ITrack>>();
   const [currentTrack, setCurrentTrack] = useState<number>(0);
   const [bgColor, setBgColor] = useState<string>('#191414');
+  const [showTrackView, setShowTrackView] = useState<boolean>(false);
   const changeTrack = (direction: 'left' | 'right') => {
     if (!tracks) return;
     if (direction === 'right') {
@@ -32,7 +33,8 @@ function SongViewer() {
   };
 
   useEffect(() => {
-    selected && fetchTracks(selected.id);
+    setCurrentTrack(0);
+    selected && fetchTracks(selected.id) && setShowTrackView(true);
   }, [selected]);
   useEffect(() => {
     if (!tracks) return;
@@ -47,7 +49,15 @@ function SongViewer() {
     <>
       <PlaylistSelector onChange={setSelected} selected={selected} />
 
-      {tracks && <TrackView nextTrack={changeTrack} bgColor={bgColor} track={tracks[currentTrack]} />}
+      {tracks && (
+        <TrackView
+          isShowing={showTrackView}
+          onClose={() => setShowTrackView(false)}
+          nextTrack={changeTrack}
+          bgColor={bgColor}
+          track={tracks[currentTrack]}
+        />
+      )}
     </>
   );
 }
