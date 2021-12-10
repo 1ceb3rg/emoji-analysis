@@ -18,7 +18,11 @@ function NextTrackButton(props: INextTrackButtonProps) {
       onClick={onClick}
       className="col-span-1 min-w-1/12  flex align-middle text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50"
     >
-      {direction === 'right' ? <ChevronRightIcon className=" opacity-100 " /> : <ChevronLeftIcon />}
+      {direction === 'right' ? (
+        <ChevronRightIcon className=" opacity-100 " />
+      ) : (
+        <ChevronLeftIcon className=" opacity-100 " />
+      )}
     </button>
   );
 }
@@ -47,12 +51,16 @@ function TrackView(props: ITrackViewProps) {
   return (
     <div className={classNames('fixed inset-0 overflow-hidden', { hidden: !isShowing })}>
       <div style={{ backgroundColor: bgColor }} className={classNames('absolute inset-0 overflow-hidden')}>
-        <div className="w-full flex items-end justify-end">
-          <button type="button" onClick={onClose}>
-            <XIcon className="h-10 w-10" />
+        <div className="w-full flex  items-end justify-end">
+          <button
+            type="button"
+            className="hover:opacity-50 hover:text-black w-1/6 text-gray-50 hover:bg-gray-200"
+            onClick={onClose}
+          >
+            <XIcon className="" />
           </button>
         </div>
-        <div className="grid grid-cols-6 duration-75  h-screen justify-center py-10 rounded-md">
+        <div className="grid grid-cols-6 duration-75  h-screen justify-center  rounded-md">
           <NextTrackButton
             onClick={() => {
               setImageShow(false);
