@@ -4,14 +4,14 @@ module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    colors:{
-      
+    colors: {
+
       white: colors.white,
       gray: colors.trueGray,
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.amber,
-      black:"#191414"
+      black: "#191414"
     },
     extend: {
       fontFamily: {
@@ -19,14 +19,15 @@ module.exports = {
       },
       animation: {
         slidein: 'slidein 1s linear infinite',
-        tempo:'tempo infinite'
+        tempo: 'tempo infinite'
 
 
       },
-      
-    },},
+
+    },
+  },
   variants: {
     extend: {},
   },
-  plugins: [  require('@tailwindcss/typography') ],
+  plugins: [require('@tailwindcss/typography')],
 }

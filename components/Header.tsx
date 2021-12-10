@@ -1,20 +1,18 @@
-import { Menu, Disclosure, Transition } from "@headlessui/react";
-import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import classNames from "classnames";
-import { signOut, signIn, useSession } from "next-auth/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { Fragment } from "react";
-import user from "../pages/api/spotify/user";
+import { Menu, Disclosure, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import classNames from 'classnames';
+import { signOut, signIn, useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { Fragment } from 'react';
 
-const Header = () => {
+function Header() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  router.pathname;
   const navigation = [
-    { href: "/", name: "Home", current: router.pathname === "/" },
-    { href: "/song", name: "Song", current: router.pathname === "/song" },
-    { href: "/about", name: "About", current: router.pathname === "/about" },
+    { href: '/', name: 'Home', current: router.pathname === '/' },
+    { href: '/song', name: 'Song', current: router.pathname === '/song' },
+    { href: '/about', name: 'About', current: router.pathname === '/about' },
   ];
   return (
     <>
@@ -28,8 +26,8 @@ const Header = () => {
                     <div
                       className="text-3xl"
                       style={{
-                        textShadow: "white 0 0 0",
-                        color: "transparent",
+                        textShadow: 'white 0 0 0',
+                        color: 'transparent',
                       }}
                     >
                       🎼
@@ -39,16 +37,16 @@ const Header = () => {
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item) => (
                         <Link key={item.name} href={item.href}>
+                          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                           <a
-                            aria-current={item.current ? "page" : undefined}
+                            aria-current={item.current ? 'page' : undefined}
                             className={classNames(
                               item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "px-3 py-2 rounded-md text-sm font-medium"
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'px-3 py-2 rounded-md text-sm font-medium',
                             )}
                           >
-                            {" "}
                             {item.name}
                           </a>
                         </Link>
@@ -64,20 +62,16 @@ const Header = () => {
                         <Menu.Button className="max-w-xs bg-black rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                           <span className="sr-only">Open user menu</span>
                           {(session?.user?.image && (
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={session?.user?.image}
-                              alt=""
-                            />
+                            <img className="h-8 w-8 rounded-full" src={session?.user?.image} alt="" />
                           )) || (
                             <div
                               className="text-xl"
                               style={{
-                                textShadow: "white 0 0 0",
-                                color: "transparent",
+                                textShadow: 'white 0 0 0',
+                                color: 'transparent',
                               }}
                             >
-                              {" "}
+                              {' '}
                               🎵
                             </div>
                           )}
@@ -95,17 +89,14 @@ const Header = () => {
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <Menu.Item>
                             <button
+                              type="button"
                               onClick={() => {
-                                if (status === "authenticated") signOut();
+                                if (status === 'authenticated') signOut();
                                 else signIn();
                               }}
-                              className={classNames(
-                                "block px-4 py-2 text-sm text-gray-700"
-                              )}
+                              className={classNames('block px-4 py-2 text-sm text-gray-700')}
                             >
-                              {status === "authenticated"
-                                ? "Sign Out"
-                                : "Sign In"}
+                              {status === 'authenticated' ? 'Sign Out' : 'Sign In'}
                             </button>
                           </Menu.Item>
                         </Menu.Items>
@@ -134,12 +125,10 @@ const Header = () => {
                     as="a"
                     href={item.href}
                     className={classNames(
-                      item.current
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block px-3 py-2 rounded-md text-base font-medium"
+                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                      'block px-3 py-2 rounded-md text-base font-medium',
                     )}
-                    aria-current={item.current ? "page" : undefined}
+                    aria-current={item.current ? 'page' : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
@@ -149,17 +138,13 @@ const Header = () => {
                 <div className="flex items-center px-5">
                   <div className="flex-shrink-0">
                     {(session?.user?.image && (
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={session.user?.image}
-                        alt=""
-                      />
+                      <img className="h-10 w-10 rounded-full" src={session.user?.image} alt="" />
                     )) || (
                       <div
                         className="text-xl"
                         style={{
-                          textShadow: "white 0 0 0",
-                          color: "transparent",
+                          textShadow: 'white 0 0 0',
+                          color: 'transparent',
                         }}
                       >
                         🎵
@@ -167,12 +152,8 @@ const Header = () => {
                     )}
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium leading-none text-white">
-                      {session?.user?.name}
-                    </div>
-                    <div className="text-sm font-medium leading-none text-gray-400">
-                      {session?.user?.email}
-                    </div>
+                    <div className="text-base font-medium leading-none text-white">{session?.user?.name}</div>
+                    <div className="text-sm font-medium leading-none text-gray-400">{session?.user?.email}</div>
                   </div>
                 </div>
                 <div className="mt-3 px-2 space-y-1">
@@ -185,12 +166,13 @@ const Header = () => {
                     className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                   >
                     <button
+                      type="button"
                       onClick={() => {
-                        if (status === "authenticated") signOut();
+                        if (status === 'authenticated') signOut();
                         else signIn();
                       }}
                     >
-                      {status === "authenticated" ? "Sign Out" : "Sign In"}
+                      {status === 'authenticated' ? 'Sign Out' : 'Sign In'}
                     </button>
                   </Disclosure.Button>
                 </div>
@@ -201,18 +183,16 @@ const Header = () => {
       </Disclosure>
       <div className="bg-black ">
         <div className=" shadow max-w-7xl mx-auto bg-blend-lighten   md:px-6 lg:px-8  h-0.5   bg-origin-border">
-          <div className="bg-gray-700 mx-auto w-full h-full "></div>
+          <div className="bg-gray-700 mx-auto w-full h-full " />
         </div>
       </div>
       <header className="bg-black  shadow">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl font-bold font-mono text-gray-200">
-            Playlist Emojis
-          </h1>
+          <h1 className="text-3xl font-bold font-mono text-gray-200">Playlist Emojis</h1>
         </div>
         <div className="h-20 md:h-20"> </div>
       </header>
     </>
   );
-};
+}
 export default Header;

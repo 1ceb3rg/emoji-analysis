@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { IPlaylist } from "../models/playlist";
-import PlaylistSelector from "./PlaylistSelector";
-import TracksList from "./TracksList";
+import { useState } from 'react';
+import { IPlaylist } from '../models/playlist';
+import PlaylistSelector from './PlaylistSelector';
+import TracksList from './TracksList';
 
-interface IPlaylistViewProps {}
-const PlayslistView = (props: IPlaylistViewProps) => {
+function PlayslistView() {
   const [selected, setSelected] = useState<IPlaylist>();
   return (
     <>
@@ -12,5 +11,5 @@ const PlayslistView = (props: IPlaylistViewProps) => {
       <TracksList playlistId={selected?.id} />
     </>
   );
-};
+}
 export default PlayslistView;

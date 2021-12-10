@@ -1,5 +1,5 @@
-import NextAuth from "next-auth"
-import SpotifyProvider from "next-auth/providers/spotify"
+import NextAuth from 'next-auth';
+import SpotifyProvider from 'next-auth/providers/spotify';
 // import AppleProvider from "next-auth/providers/apple"
 // import EmailProvider from "next-auth/providers/email"
 
@@ -7,11 +7,13 @@ import SpotifyProvider from "next-auth/providers/spotify"
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
- providers:[ SpotifyProvider({      // @ts-ignore
-    clientId: process.env.SPOTIFY_CLIENT_ID,
-          // @ts-ignore
-    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
-  })
+  providers: [
+    SpotifyProvider({
+      // @ts-ignore
+      clientId: process.env.SPOTIFY_CLIENT_ID,
+      // @ts-ignore
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+    }),
   ],
   // The secret should be set to a reasonably long random string.
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
@@ -22,7 +24,7 @@ export default NextAuth({
     // Use JSON Web Tokens for session instead of database sessions.
     // This option can be used with or without a database for users/accounts.
     // Note: `strategy` should be set to 'jwt' if no database is used.
-    strategy: 'jwt'
+    strategy: 'jwt',
 
     // Seconds - How long until an idle session expires and is no longer valid.
     // maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -70,11 +72,11 @@ export default NextAuth({
     async jwt({ token, account }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
-        token.accessToken = account.access_token
+        // eslint-disable-next-line no-param-reassign
+        token.accessToken = account.access_token;
       }
-      return token
+      return token;
     },
-
   },
 
   // Events are useful for logging
@@ -84,9 +86,9 @@ export default NextAuth({
   // You can set the theme to 'light', 'dark' or use 'auto' to default to the
   // whatever prefers-color-scheme is set to in the browser. Default is 'auto'
   theme: {
-    colorScheme: "light",
+    colorScheme: 'light',
   },
 
   // Enable debug messages in the console if you are having problems
   debug: false,
-})
+});

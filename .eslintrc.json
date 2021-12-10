@@ -1,4 +1,22 @@
 {
-  "extends":[ "next/core-web-vitals"]
+  "extends":[ "next/core-web-vitals","airbnb", "airbnb/hooks","airbnb-typescript","plugin:prettier/recommended"],
+  "plugins":   ["@typescript-eslint", "react-hooks", "prettier"],
+"rules": {"react/function-component-definition": [
+  2,
+  {
+    "namedComponents": "function-declaration"
+  }
+],   "react/react-in-jsx-scope": "off",
+"comma-dangle": "off",
+"@typescript-eslint/comma-dangle": ["error"],
+"@typescript-eslint/no-unused-expressions":["error", { "allowShortCircuit": true, "allowTernary": true }],
+"react/prop-types": "off", // Since we do not use prop-types
+
+"react/require-default-props": "off" 
+
+},
+  "parserOptions": {
+       "project": "./tsconfig.json"
+     }
   
 }

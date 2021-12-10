@@ -1,26 +1,22 @@
-import FastAverageColor from "fast-average-color";
-import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
-import { IPlaylist, ITrack } from "../models/playlist";
-import PlaylistSelector from "./PlaylistSelector";
-import SignInButton from "./SignInButton";
-import TrackView from "./TrackView";
+import FastAverageColor from 'fast-average-color';
+import React, { useEffect, useState } from 'react';
+import { IPlaylist, ITrack } from '../models/playlist';
+import PlaylistSelector from './PlaylistSelector';
+import TrackView from './TrackView';
+
 const fac = new FastAverageColor();
-const SongViewer = () => {
-  const { status } = useSession();
+function SongViewer() {
   const [selected, setSelected] = useState<IPlaylist>();
   const [tracks, setTracks] = useState<Array<ITrack>>();
   const [currentTrack, setCurrentTrack] = useState<number>(0);
-  const [bgColor, setBgColor] = useState<string>("#191414");
-  const changeTrack = (direction: "left" | "right") => {
+  const [bgColor, setBgColor] = useState<string>('#191414');
+  const changeTrack = (direction: 'left' | 'right') => {
     if (!tracks) return;
-    if (direction === "right") {
-      if (currentTrack !== tracks.length - 1)
-        setCurrentTrack((currentTrack) => currentTrack + 1);
+    if (direction === 'right') {
+      if (currentTrack !== tracks.length - 1) setCurrentTrack((prevTrack) => prevTrack + 1);
       else setCurrentTrack(0);
-    } else if (direction === "left") {
-      if (currentTrack !== 0)
-        setCurrentTrack((currentTrack) => currentTrack - 1);
+    } else if (direction === 'left') {
+      if (currentTrack !== 0) setCurrentTrack((prevTrack) => prevTrack - 1);
       else setCurrentTrack(tracks.length - 1);
     }
   };
@@ -45,19 +41,14 @@ const SongViewer = () => {
       setBgColor(color);
     };
     tracks && getLocalColor(tracks[currentTrack]?.album.images[1].url);
-  }, [currentTrack]);
+  }, [currentTrack, tracks]);
 
   return (
     <>
       <PlaylistSelector onChange={setSelected} selected={selected} />
-      {tracks && (
-        <TrackView
-          nextTrack={changeTrack}
-          bgColor={bgColor}
-          track={tracks[currentTrack]}
-        />
-      )}
+
+      {tracks && <TrackView nextTrack={changeTrack} bgColor={bgColor} track={tracks[currentTrack]} />}
     </>
   );
-};
+}
 export default SongViewer;

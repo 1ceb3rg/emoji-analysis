@@ -1,18 +1,13 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import Head from "next/head";
-import { useSession } from "next-auth/react";
-import SignInButton from "./SignInButton";
-import React from "react";
-import { Sign } from "crypto";
+import Head from 'next/head';
+import Footer from './Footer';
+import Header from './Header';
+
 interface ILayoutProps {
   children: React.ReactNode;
 }
 
-const Layout = (props: ILayoutProps) => {
+function Layout(props: ILayoutProps) {
   const { children } = props;
-  const { status } = useSession();
-
   return (
     <>
       <Header />
@@ -32,5 +27,5 @@ const Layout = (props: ILayoutProps) => {
       <Footer />
     </>
   );
-};
+}
 export default Layout;
