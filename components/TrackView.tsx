@@ -50,17 +50,20 @@ function TrackView(props: ITrackViewProps) {
 
   return (
     <div className={classNames('fixed inset-0 overflow-hidden', { hidden: !isShowing })}>
-      <div style={{ backgroundColor: bgColor }} className={classNames('absolute inset-0 overflow-hidden')}>
-        <div className="w-full flex  items-end justify-end">
+      <div
+        style={{ backgroundColor: bgColor }}
+        className={classNames('absolute inset-0 overflow-hidden h-screen flex flex-col')}
+      >
+        <div className="w-full w h-full flex basis-1/12  items-end justify-end">
           <button
             type="button"
-            className="hover:opacity-50 hover:text-black w-1/6 text-gray-50 hover:bg-gray-200"
+            className="hover:opacity-50 w-1/6 flex justify-center hover:text-black  text-gray-50 hover:bg-gray-200"
             onClick={onClose}
           >
-            <XIcon className="" />
+            <XIcon className="h-10 m-3" />
           </button>
         </div>
-        <div className="grid grid-cols-6 duration-75  h-screen justify-center  rounded-md">
+        <div className="grid flex-grow-0 flex-shrink basis-4/12 grid-cols-6 justify-center  rounded-md">
           <NextTrackButton
             onClick={() => {
               setImageShow(false);
@@ -71,9 +74,10 @@ function TrackView(props: ITrackViewProps) {
           />
           <div className="col-span-4">
             <Transition
-              className=" w-full h-full "
+              className="w-full h-full flex  justify-center   "
               show={imageShow}
               appear
+              unmount={false}
               enter="transition-opacity duration-500"
               enterFrom="opacity-0"
               enterTo="opacity-100"
@@ -81,31 +85,11 @@ function TrackView(props: ITrackViewProps) {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="flex w-full  flex-col">
-                <div className="basis-2/3 h-2/3 ">
-                  <img className="object-contain shadow-md" alt="Album Cover" src={track.album.images[0].url} />
-                </div>
-                <div className={classNames('flex basis-1/3 flex-col mt-3 shadow-md  rounded-xl  ')}>
-                  <TrackSection className="bg-gray-200 p-2  " title="Artist">
-                    {track.artists.reduce((artists, artist) => {
-                      return `${artists}, ${artist}`;
-                    })}
-                  </TrackSection>
-                  <TrackSection className="bg-white p-2 " title="Name">
-                    {track.name}
-                  </TrackSection>
-                  <TrackSection className="bg-gray-200 p-2 " title="Album">
-                    {track.album.name}
-                  </TrackSection>
-
-                  <TrackSection className="bg-white  p-2" title="Tempo">
-                    {Math.round(track.tempo)}
-                  </TrackSection>
-                </div>
+              <div className="w-full  ">
+                <img className=" shadow-md  " alt="Album Cover" src={track.album.images[0].url} />
               </div>
             </Transition>
           </div>
-
           <NextTrackButton
             onClick={() => {
               setImageShow(false);
@@ -114,6 +98,27 @@ function TrackView(props: ITrackViewProps) {
             }}
             direction="right"
           />
+        </div>
+        <div
+          className={classNames(
+            'flex col-span-6 basis-/12  mx-2 md:mx-20  h-2/3 flex-col mt-3 shadow-md  rounded-xl overflow-y-scroll  ',
+          )}
+        >
+          <TrackSection className="bg-gray-200 p-2  " title="Artist">
+            {track.artists.reduce((artists, artist) => {
+              return `${artists}, ${artist}`;
+            })}
+          </TrackSection>
+          <TrackSection className="bg-white p-2 " title="Name">
+            {track.name}
+          </TrackSection>
+          <TrackSection className="bg-gray-200 p-2 " title="Album">
+            {track.album.name}
+          </TrackSection>
+
+          <TrackSection className="bg-white  p-2" title="Tempo">
+            {Math.round(track.tempo)}
+          </TrackSection>
         </div>
       </div>
     </div>
