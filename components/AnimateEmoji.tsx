@@ -12,10 +12,8 @@ function AnimateEmoji(props: IAnimateEmojiProps): JSX.Element {
   // console.log(x);
   //   return <></>;
   return (
-    <div className="flex  ">
-      {Math.round(tempo)}
-      BPM
-      <div className="flex pl-2 ">
+    <div className="flex flex-wrap  ">
+      <div className="flex  mr-2 ">
         {x.map((char, index) => {
           const duration = (1 / (tempo / 60)) * timeSignature;
           const styles = {

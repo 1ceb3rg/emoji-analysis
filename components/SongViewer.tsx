@@ -33,8 +33,8 @@ function SongViewer() {
   };
 
   useEffect(() => {
-    setCurrentTrack(0);
     selected && fetchTracks(selected.id) && setShowTrackView(true);
+    setCurrentTrack(0);
   }, [selected]);
   useEffect(() => {
     if (!tracks) return;

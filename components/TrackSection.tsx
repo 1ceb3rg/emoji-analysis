@@ -22,7 +22,7 @@ function TrackSection(props: ITrackSectionProps) {
       )}
     >
       <dt className="font-medium text-black  flex place-items-center   md:hidden ">{title}</dt>
-      <dd className="md:col-span-2   flex  text-black  text-base  md:text-black md:text-left ">{children}</dd>
+      <dd className="md:col-span-2 flex-wrap   flex  text-black  text-base  md:text-black md:text-left ">{children}</dd>
     </div>
   );
 }
