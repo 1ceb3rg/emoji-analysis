@@ -11,17 +11,33 @@ import AnimateEmoji from './AnimateEmoji';
 interface INextTrackButtonProps {
   direction: 'right' | 'left';
   onClick: () => void;
+  onClose: () => void;
 }
 function NextTrackButton(props: INextTrackButtonProps) {
-  const { direction, onClick } = props;
+  const { direction, onClick, onClose } = props;
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="col-span-1 min-w-1/12 basis-3/12  flex align-middle text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50"
-    >
-      {direction === 'right' ? <ChevronRightIcon className="min-h-0" /> : <ChevronLeftIcon className="min-h-0" />}
-    </button>
+    <div className="  min-w-2/12 basis-2/12  flex flex-col  text-gray-50 ">
+      {direction === 'right' && (
+        <button
+          type="button"
+          className="hover:opacity-50 min-w-1/12 justify-self-start h-1/6 flex   hover:text-black  text-gray-50 hover:bg-gray-200"
+          onClick={onClose}
+        >
+          <XIcon className=" h-max min-h-0" />
+        </button>
+      )}
+      <button
+        type="button"
+        onClick={onClick}
+        className="  min-w-2/12 flex content-end items-end h-full text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
+      >
+        {direction === 'right' ? (
+          <ChevronRightIcon className="min-h-0 h-max" />
+        ) : (
+          <ChevronLeftIcon className="min-h-0 h-max" />
+        )}
+      </button>
+    </div>
   );
 }
 
@@ -63,19 +79,13 @@ function TrackView(props: ITrackViewProps) {
           <div className={classNames('fixed inset-0 overflow-hidden')}>
             <div
               style={{ transition: `background-color 0.5s ease-in`, backgroundColor: bgColor }}
-              className={classNames('absolute inset-0 overflow-hidden  gap-3  h-screen flex flex-col')}
+              className={classNames(
+                'absolute inset-0 overflow-hidden py-2 gap-3 align-content-center justify-items-center justify-center  h-screen flex flex-col',
+              )}
             >
-              <div className="w-full  flex basis-1/12  items-end justify-end">
-                <button
-                  type="button"
-                  className="hover:opacity-50  min-h-0 w-1/6 flex justify-center hover:text-black  text-gray-50 hover:bg-gray-200"
-                  onClick={onClose}
-                >
-                  <XIcon className="min-h-0 m-3" />
-                </button>
-              </div>
               <div className="flex flex-grow-0 min-h-0 basis-6/12 flex-shrink-0  grid-cols-6 justify-center  rounded-md">
                 <NextTrackButton
+                  onClose={onClose}
                   onClick={() => {
                     setNextTrackDirection('left');
                     setImageShow(false);
@@ -101,6 +111,7 @@ function TrackView(props: ITrackViewProps) {
                 </Transition.Child>
 
                 <NextTrackButton
+                  onClose={onClose}
                   onClick={() => {
                     setNextTrackDirection('right');
                     setImageShow(false);
@@ -108,8 +119,9 @@ function TrackView(props: ITrackViewProps) {
                   direction="right"
                 />
               </div>
-              <div className="basis-4/12  overflow-y-scroll  flex-shrink-0 flex-grow-0 col-span-6 ">
+              <div className="basis-4/12 min-h-0  flex-shrink-0 flex-grow-0 col-span-6 ">
                 <Transition.Child
+                  as={Fragment}
                   appear
                   unmount={false}
                   enter="transition-opacity duration-500"
@@ -119,7 +131,11 @@ function TrackView(props: ITrackViewProps) {
                   leaveFrom="opacity-100"
                   leaveTo="blur"
                 >
-                  <div className={classNames('flex mb-2 mx-2 md:mx-20   flex-col  shadow-md  rounded-xl   ')}>
+                  <div
+                    className={classNames(
+                      'flex  mx-2 md:mx-20 h-full overflow-y-scroll flex-grow-0   flex-col  shadow-md  rounded-xl   ',
+                    )}
+                  >
                     <TrackSection className="bg-gray-200 p-2  " title="Artist">
                       {track.artists.reduce((artists, artist) => {
                         return `${artists}, ${artist}`;
