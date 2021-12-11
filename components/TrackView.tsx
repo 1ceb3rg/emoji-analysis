@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useState } from 'react';
+import { Fragment, useLayoutEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
 import { Dialog, Transition } from '@headlessui/react';
 import { useTimeoutFn } from 'react-use';
