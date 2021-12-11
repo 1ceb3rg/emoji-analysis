@@ -16,20 +16,20 @@ interface INextTrackButtonProps {
 function NextTrackButton(props: INextTrackButtonProps) {
   const { direction, onClick, onClose } = props;
   return (
-    <div className=" w-2/12 basis-2/12  flex flex-col  text-gray-50 ">
+    <div className=" w-1/12  flex flex-col justify-between  text-gray-50 ">
       {direction === 'right' && (
         <button
           type="button"
-          className="hover:opacity-50  justify-self-start h-1/6 flex justify-center align-middle   hover:text-black  text-gray-50 hover:bg-gray-200"
+          className="hover:opacity-50 h-1/6 justify-center items-center  flex flex-col  hover:text-black  text-gray-50 hover:bg-gray-200"
           onClick={onClose}
         >
-          <XIcon className=" h-max min-h-0" />
+          <XIcon className=" max-h-fit min-h-0" />
         </button>
       )}
       <button
         type="button"
         onClick={onClick}
-        className="  min-w-2/12 flex content-end items-end  flex-grow text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
+        className="  min-w-2/12 basis-5/6 flex content-end items-end  flex-grow text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
       >
         {direction === 'right' ? (
           <ChevronRightIcon className="min-h-0 h-max" />
