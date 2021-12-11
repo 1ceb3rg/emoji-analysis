@@ -16,7 +16,7 @@ interface INextTrackButtonProps {
 function NextTrackButton(props: INextTrackButtonProps) {
   const { direction, onClick, onClose } = props;
   return (
-    <div className="  min-w-2/12 basis-2/12  flex flex-col  text-gray-50 ">
+    <div className=" w-2/12 basis-2/12  flex flex-col  text-gray-50 ">
       {direction === 'right' && (
         <button
           type="button"
