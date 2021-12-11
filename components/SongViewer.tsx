@@ -25,10 +25,8 @@ function SongViewer() {
     const res = await fetch(`/api/spotify/playlists/${playlistId}`);
     const json = await res.json();
     setTracks(json);
-    console.log(json);
   };
   const getColor = async (image: string) => {
-    console.log(image);
     return (await fac.getColorAsync(image)).hex;
   };
 

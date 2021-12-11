@@ -65,7 +65,7 @@ function TrackView(props: ITrackViewProps) {
               style={{ transition: `background-color 0.5s ease-in`, backgroundColor: bgColor }}
               className={classNames('absolute inset-0 overflow-hidden  gap-3  h-screen flex flex-col')}
             >
-              <div className="w-full  flex-grow-0 flex basis-1/12  items-end justify-end">
+              <div className="w-full  flex basis-1/12  items-end justify-end">
                 <button
                   type="button"
                   className="hover:opacity-50  min-h-0 w-1/6 flex justify-center hover:text-black  text-gray-50 hover:bg-gray-200"
@@ -74,7 +74,7 @@ function TrackView(props: ITrackViewProps) {
                   <XIcon className="min-h-0 m-3" />
                 </button>
               </div>
-              <div className="flex flex-grow-0 min-h-0 basis-6/12 flex-shrink  grid-cols-6 justify-center  rounded-md">
+              <div className="flex flex-grow-0 min-h-0 basis-6/12 flex-shrink-0  grid-cols-6 justify-center  rounded-md">
                 <NextTrackButton
                   onClick={() => {
                     setNextTrackDirection('left');
@@ -108,7 +108,7 @@ function TrackView(props: ITrackViewProps) {
                   direction="right"
                 />
               </div>
-              <div className="basis-4/12 col-span-6 ">
+              <div className="basis-4/12  overflow-y-scroll  flex-shrink-0 flex-grow-0 col-span-6 ">
                 <Transition.Child
                   appear
                   unmount={false}
@@ -119,7 +119,7 @@ function TrackView(props: ITrackViewProps) {
                   leaveFrom="opacity-100"
                   leaveTo="blur"
                 >
-                  <div className={classNames('flex flex-grow mb-2 mx-2 md:mx-20   flex-col  shadow-md  rounded-xl   ')}>
+                  <div className={classNames('flex mb-2 mx-2 md:mx-20   flex-col  shadow-md  rounded-xl   ')}>
                     <TrackSection className="bg-gray-200 p-2  " title="Artist">
                       {track.artists.reduce((artists, artist) => {
                         return `${artists}, ${artist}`;
