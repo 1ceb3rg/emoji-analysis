@@ -16,26 +16,24 @@ interface INextTrackButtonProps {
 function NextTrackButton(props: INextTrackButtonProps) {
   const { direction, onClick, onClose } = props;
   return (
-    <div className=" w-1/12  flex flex-col justify-between  text-gray-50 ">
+    <div className="flex  basis-2/12   flex-col justify-end  text-gray-50 ">
       {direction === 'right' && (
         <button
           type="button"
           className="hover:opacity-50 h-1/6 justify-center items-center  flex flex-col  hover:text-black  text-gray-50 hover:bg-gray-200"
           onClick={onClose}
         >
-          <XIcon className=" max-h-fit min-h-0" />
+          <XIcon className=" min-h-0" />
         </button>
       )}
       <button
         type="button"
         onClick={onClick}
-        className="  min-w-2/12 basis-5/6 flex content-end items-end  flex-grow text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
-      >
-        {direction === 'right' ? (
-          <ChevronRightIcon className="min-h-0 h-max" />
-        ) : (
-          <ChevronLeftIcon className="min-h-0 h-max" />
+        className={classNames(
+          '  flex  flex-col h-5/6 justify-center  text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50 ',
         )}
+      >
+        {direction === 'right' ? <ChevronRightIcon className="min-h-0 " /> : <ChevronLeftIcon className="min-h-0 " />}
       </button>
     </div>
   );
@@ -94,7 +92,7 @@ function TrackView(props: ITrackViewProps) {
                 />
 
                 <Transition.Child
-                  className=" flex flex-shrink flex-grow-0  col-span-4  justify-center   "
+                  className=" flex flex-grow  basis-full   justify-center   "
                   afterLeave={() => {
                     nextTrack(nextTrackDirection);
                     setImageShow(true);
