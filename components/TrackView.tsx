@@ -20,7 +20,7 @@ function NextTrackButton(props: INextTrackButtonProps) {
       onClick={onClick}
       className="col-span-1 min-w-1/12 basis-3/12  flex align-middle text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50"
     >
-      {direction === 'right' ? <ChevronRightIcon className="min-h-10" /> : <ChevronLeftIcon className="min-h-10 " />}
+      {direction === 'right' ? <ChevronRightIcon className="min-h-0" /> : <ChevronLeftIcon className="min-h-0" />}
     </button>
   );
 }

@@ -20,4 +20,6 @@ export interface ITrack {
   image: string;
   time_signature: number;
   album: { name: string; images: Array<{ url: string }> };
+  acousticness: number;
+  danceability: number;
 }

@@ -37,6 +37,7 @@ export const getTempoEmoji = (tempo: number) => {
 export const getDanceEmoji = (dancebility: number) => {
   const num = Math.round(dancebility * 10);
 
+  // eslint-disable-next-line no-nested-ternary
   return new Array(num).fill(num < 4 ? danceEmojis[0] : num < 7 ? danceEmojis[1] : danceEmojis[2]).join('');
 };
 export const getAcousticEmoji = (acousticness: number) => {
