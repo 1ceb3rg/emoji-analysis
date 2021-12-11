@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@heroicons/react/outline';
 import { Dialog, Transition } from '@headlessui/react';
 import { useTimeoutFn } from 'react-use';
@@ -20,7 +20,7 @@ function NextTrackButton(props: INextTrackButtonProps) {
       {direction === 'right' && (
         <button
           type="button"
-          className="hover:opacity-50 min-w-1/12 justify-self-start h-1/6 flex   hover:text-black  text-gray-50 hover:bg-gray-200"
+          className="hover:opacity-50  justify-self-start h-1/6 flex justify-center align-middle   hover:text-black  text-gray-50 hover:bg-gray-200"
           onClick={onClose}
         >
           <XIcon className=" h-max min-h-0" />
@@ -29,7 +29,7 @@ function NextTrackButton(props: INextTrackButtonProps) {
       <button
         type="button"
         onClick={onClick}
-        className="  min-w-2/12 flex content-end items-end h-full text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
+        className="  min-w-2/12 flex content-end items-end  flex-grow text-gray-50 hover:text-black hover:bg-gray-200 hover:opacity-50  justify-items-end  "
       >
         {direction === 'right' ? (
           <ChevronRightIcon className="min-h-0 h-max" />
@@ -57,7 +57,7 @@ function TrackView(props: ITrackViewProps) {
   const [, , resetImageShow] = useTimeoutFn(() => {
     // setTrack(newTrack);
   }, 50);
-  useEffect(() => {
+  useLayoutEffect(() => {
     resetImageShow();
   }, [track, resetImageShow]);
   return (
