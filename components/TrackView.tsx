@@ -46,7 +46,7 @@ function TrackView(props: ITrackViewProps) {
       <Transition className="" unmount={false} show={imageShow}>
         <div className={classNames('fixed inset-0 overflow-hidden')}>
           <div
-            style={{ backgroundColor: bgColor }}
+            style={{ transition: `background-color 0.5s ease-in`, backgroundColor: bgColor }}
             className={classNames('absolute inset-0 overflow-hidden   h-screen flex flex-col')}
           >
             <div className="w-full  h-screen flex basis-1/12  items-end justify-end">
