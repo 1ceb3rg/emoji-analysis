@@ -22,7 +22,7 @@ function AnimateEmoji(props: IAnimateEmojiProps): JSX.Element {
           };
 
           return (
-            <div key={index.toString()} className="flex   ">
+            <div key={`key-${index.toString()}`} className="flex">
               <style>
                 {`
             @keyframes tempo {
