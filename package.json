@@ -16,7 +16,7 @@
     "classnames": "^2.3.1",
     "fast-average-color": "^7.0.1",
     "next": "12.1.0",
-    "next-auth": "^4.0.2",
+    "next-auth": "^4.9.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-use": "^17.3.1"
